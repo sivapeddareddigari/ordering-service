@@ -12,7 +12,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 @QuarkusTest
-public class orderingControllerTests {
+public class OrdersControllerTests {
 
     @Inject
     OrderingRepository repository;
@@ -24,26 +24,23 @@ public class orderingControllerTests {
 
     @Test
     public void testFindById() {
-        Orders orders = new Orders(1L, 1L, "Adrien Hamilton", 33, "Developer");
+        Orders orders = new Orders(10L, "Spare parts", 33, "Carburetor");
         orders = repository.add(orders);
-        given().when().get("/orderings/{id}", orders.getId()).then().statusCode(200)
+        given().when().get("/orders/{id}", orders.getId()).then().statusCode(200)
                 .body("id", equalTo(orders.getId().intValue()))
-                .body("name", equalTo(orders.getName()))
+                .body("Description", equalTo(orders.getDescription()))
                 .body("Items", equalTo(orders.getItems()));
     }
 
-    @Test
-    public void testFindByDepartment() {
-        given().when().get("/orderings/department/{departmentId}", 1L).then().statusCode(200).body(notNullValue());
-    }
+
 
     @Test
     public void testAdd() {
-        Orders orders = new Orders(1L, 1L, "Josh Stevens", 23, "Developer");
+        Orders orders = new Orders(10L, "Winter Tires", 40, "Tires");
         given().contentType("application/json").body(orders)
                 .when().post("/orderings").then().statusCode(200)
                     .body("id", notNullValue())
-                    .body("name", equalTo(orders.getName()))
+                    .body("Description", equalTo(orders.getDescription()))
                     .body("Items", equalTo(orders.getItems()));
     }
 

@@ -13,8 +13,8 @@ public class OrderingRepository {
     private Set<Orders> orders = new HashSet<>();
 
     public OrderingRepository() {
-        add(new Orders(1L, "Spare Parts", 30, "Carburetor"));
-        add(new Orders(1L, "Tires", 40, "Winter Tires"));
+        add(new Orders(10L, "Spare Parts", 30, "Carburetor"));
+        add(new Orders(20L, "Tires", 40, "Winter Tires"));
     }
 
     public Orders add(Orders orders) {
